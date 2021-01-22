@@ -78,7 +78,7 @@ export default function Notifications() {
       
       {/*option1 <input type="file" onChange={this.fileHandler.bind(this)} style={{"padding":"10px"}} />
       <OutTable data={this.state.rows} columns={this.state.cols} tableClassName="Protocols" tableHeaderRowClass="heading" /> */}
-
+      <h1>Shir</h1>
       {/* <script lang="javascript" src="assets/jss/material-dashboard-react\src\views\Notifications\Protocols.xlsx"></script> */}
 
     </div>
