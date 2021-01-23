@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 // @material-ui/core
@@ -48,26 +49,55 @@ const useStyles = makeStyles(styles);
 export default function Dashboard() {
   const classes = useStyles();
 
-  function handleButtonClicked(){
-    console.log(document.getElementById("ID_num").value);
-    var Srch_ID=document.getElementById("ID_num").value;
-    var TodayP=document.getElementById("Patients4show").value;
+  const [userToSearch, setUserToSearch] = useState()
 
-    for (var i=1;i<5;i++)
-    {
-      if ((TodayP[1][i].tableData).search(Srch_ID))
-      {
+  function handleButtonClicked() {
+    console.log(document.getElementById("ID_num").value);
+    var Srch_ID = document.getElementById("ID_num").value;
+    var TodayP = document.getElementById("Patients4show").value;
+
+    for (var i = 1; i < 5; i++) {
+      if ((TodayP[1][i].tableData).search(Srch_ID)) {
         console.log(true);
         break;
       }
-      if (i==5)
-      {
+      if (i == 5) {
         console.log(false);
       }
     }
   }
 
-  
+  function getPassword(name) {
+    console.log('get password', name)
+
+    fetch(`/get-password?name=${name}&city=arara`)
+      .then(r => r.json())
+      .then(pass => {
+
+        console.log(pass.password)
+      })
+    console.log('after fetch')
+  }
+
+
+  function getUserById() {
+
+    var input = document.getElementById("SEARCH_USER")
+    console.log(input.value)
+    var userId = "123456789"
+    fetch(`http://localhost:8081/user/${userId}/byUserId/${input.value}`)
+      .then(r => r.json())
+      .then(pass => {
+
+        console.log(pass)
+      })
+    console.log('after fetch')
+  }
+
+  function handle(e) {
+    console.log(e)
+    console.log("ali")
+  }
 
   return (
     <div>
@@ -85,38 +115,36 @@ export default function Dashboard() {
               <Table
                 id="Patients4show"
                 tableHeaderColor="success"
-                tableHead={["#","ID Number", "Full Name", "Phone Number", "Session Time"]}
+                tableHead={["#", "ID Number", "Full Name", "Phone Number", "Session Time"]}
                 tableData={[
-                  ["1", "313555555", "Ronna Banona", "050-7997799","09:00"],
-                  ["2", "311111111", "Danny Shovevany", "052-7993339","09:10"],
-                  ["3", "322222222", "Israel Israeli", "050-3333333","09:20"],
-                  ["4", "444445555", "Alona Boolean", "050-7998811","09:30"]
+                  ["1", "313555555", "Ronna Banona", "050-7997799", "09:00"],
+                  ["2", "311111111", "Danny Shovevany", "052-7993339", "09:10"],
+                  ["3", "322222222", "Israel Israeli", "050-3333333", "09:20"],
+                  ["4", "444445555", "Alona Boolean", "050-7998811", "09:30"]
                 ]}
-                               
-              />   
-      </CardBody>             
-      <CardFooter>
-      <GridContainer>
-      <GridItem xs={12} sm={12} md={8}>
-          <CustomInput
-            labelText="Serch by ID number:"
-            id="ID_num"
-            formControlProps={{
-            fullWidth: true
-            }}
-            inputProps={{
-            multiline: true,
-            }}
-          />
-        </GridItem>
-        <GridItem>       
-          <Button id="button-id" type="button" color="primary" size="sm" onClick= {handleButtonClicked}>serch</Button>
-        </GridItem>
-        <p id="demo"></p>
-        
-        </GridContainer>
-        </CardFooter>
-        </Card>
+                onClick={handle}
+              />
+            </CardBody>
+            <CardFooter>
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={8}>
+                  <CustomInput
+                    labelText="Serch by ID number:"
+                    id="SEARCH_USER"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    inputProps={{
+                      multiline: true,
+                    }}
+                  />
+                </GridItem>
+                <GridItem>
+                  <Button id="button-id" type="button" color="primary" size="sm" onClick={getUserById}>search</Button>
+                </GridItem>
+              </GridContainer>
+            </CardFooter>
+          </Card>
         </GridItem>
       </GridContainer>
     </div>

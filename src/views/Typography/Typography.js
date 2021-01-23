@@ -38,11 +38,9 @@ const useStyles = makeStyles(styles);
 export default function TypographyPage() {
   const classes = useStyles();
 
-  function handleButtonClicked(num){//not working
-    if (num.value==1)
-        {console.log(document.getElementById("ID_patient").value);}
-    if (num.value==2)
-        {console.log("Next");}
+  function handleButtonClicked(num) {//not working
+    if (num.value == 1) { console.log(document.getElementById("ID_patient").value); }
+    if (num.value == 2) { console.log("Next"); }
     console.log("boom");
   }
 
@@ -65,14 +63,12 @@ export default function TypographyPage() {
                     formControlProps={{
                       fullWidth: true
                     }}
-                    // inputProps={{
-                    //   disabled: true
-                    // }}
+
                   />
                 </GridItem>
-                <Button id="id_srch" color="primary" size="sm" onClick= {handleButtonClicked(1)}>Serch</Button>
-                </GridContainer>
-                <GridContainer>
+                <Button id="id_srch" color="primary" size="sm" onClick={handleButtonClicked(1)}>Serch</Button>
+              </GridContainer>
+              <GridContainer>
                 <GridItem xs={12} sm={12} md={3}>
                   <CustomInput
                     labelText="First Name"
@@ -111,7 +107,7 @@ export default function TypographyPage() {
                 </GridItem>
               </GridContainer>
               <GridContainer>
-              <GridItem xs={12} sm={12} md={3}>
+                <GridItem xs={12} sm={12} md={3}>
                   <CustomInput
                     labelText="Phone number"
                     id="username"
@@ -175,7 +171,7 @@ export default function TypographyPage() {
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <Button color="primary" onClick= {handleButtonClicked(2)}>Continue first patient insertting</Button>
+              <Button color="primary" onClick={handleButtonClicked(2)}>Continue first patient insertting</Button>
             </CardFooter>
           </Card>
         </GridItem>

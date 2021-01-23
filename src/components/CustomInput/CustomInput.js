@@ -25,6 +25,14 @@ export default function CustomInput(props) {
     error,
     success
   } = props;
+  // const { value, setValue } = props.value;
+
+  function handleChange(event) {
+
+    if (props.value !== undefined)
+      props.value.setValue(event.target.value)
+  }
+  const shrink = props.value === undefined ? null : props.value.value === undefined ? null : props.value.value === "" ? null : true
 
   const labelClasses = classNames({
     [" " + classes.labelRootError]: error,
@@ -39,34 +47,46 @@ export default function CustomInput(props) {
     [classes.marginTop]: labelText === undefined
   });
   return (
-    <FormControl
+
+    < FormControl
       {...formControlProps}
       className={formControlProps.className + " " + classes.formControl}
     >
-      {labelText !== undefined ? (
+      { labelText !== undefined ? (
         <InputLabel
           className={classes.labelRoot + labelClasses}
+
+          shrink={shrink}
           htmlFor={id}
           {...labelProps}
         >
           {labelText}
         </InputLabel>
-      ) : null}
+      ) : null
+      }
       <Input
+        value={props.value === undefined ? null : props.value.value}
+        onChange={handleChange}
         classes={{
           root: marginTop,
           disabled: classes.disabled,
-          underline: underlineClasses
+          underline: underlineClasses,
         }}
+        input
         id={id}
+
         {...inputProps}
-      />
-      {error ? (
-        <Clear className={classes.feedback + " " + classes.labelRootError} />
-      ) : success ? (
-        <Check className={classes.feedback + " " + classes.labelRootSuccess} />
-      ) : null}
-    </FormControl>
+
+      >
+      </Input >
+      {
+        error ? (
+          <Clear className={classes.feedback + " " + classes.labelRootError} />
+        ) : success ? (
+          <Check className={classes.feedback + " " + classes.labelRootSuccess} />
+        ) : null
+      }
+    </FormControl >
   );
 }
 
