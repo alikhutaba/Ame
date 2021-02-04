@@ -63,11 +63,13 @@ export default function UserProfile() {
 
 
 
+    console.log(patient)
     console.log("input", searchID)
 
     var userId = "123456789"
 
-    fetch(`http://localhost:8081/patient/${userId}/byPatientId/23498721`)
+    //23498721
+    fetch(`http://localhost:8081/patient/${userId}/byPatientId/${searchID}`)
       .then(res => res.json())
       .then(patient => {
         setPatient(patient)
@@ -132,7 +134,13 @@ export default function UserProfile() {
     setEditMode(false)
   }
 
+  function checkEmptyPatient() {
+    console.log("checkEmptyPatient")
 
+    console.log(Object.keys(patient).length === 0 && patient.constructor === Object)
+    return !(Object.keys(patient).length === 0 && patient.constructor === Object)
+
+  }
 
   return (
     <div>
@@ -168,225 +176,256 @@ export default function UserProfile() {
                 ) : null
                 }
 
-                {editMode === false ? (
-                  <GridItem>
-                    <Button id="button-id" type="button" color="info" size="sm" onClick={() => setEditMode(true)}>Edit</Button>
-                  </GridItem>
-                ) :
-                  (
+                {!(Object.keys(patient).length === 0 && patient.constructor === Object) ? (
+                  editMode === false ? (
                     <GridItem>
-                      <Button id="button-id" type="button" color="danger" size="sm" onClick={savePatient}>Save</Button>
+                      <Button id="button-id" type="button" color="info" size="sm" onClick={() => setEditMode(true)}>Edit</Button>
                     </GridItem>
-                  )
+                  ) :
+                    (
+                      <GridItem>
+                        <Button id="button-id" type="button" color="danger" size="sm" onClick={savePatient}>Save</Button>
+                      </GridItem>
+                    )
+
+                )
+                  : (null)
                 }
 
               </GridContainer>
 
 
-              {/* NAMES */}
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={3}>
-                  <CustomInput
-                    value={{ value: firstName, setValue: setFirstName }}
-                    labelText="First Name"
-                    id="first-name"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: !editMode,
-                      style: editMode ? { color: '#0967FC' } : { color: '#000000' }
-                    }}
-                  />
 
-                </GridItem>
-                <GridItem xs={12} sm={12} md={3}>
-                  <CustomInput
-                    value={{ value: middleName, setValue: setMiddleName }}
-                    labelText="Middle Name"
-                    id="middle-name"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: !editMode,
-                      style: editMode ? { color: '#0967FC' } : { color: '#000000' }
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={3}>
-                  <CustomInput
-                    value={{ value: lastName, setValue: setLastName }}
-                    labelText="Last Name"
-                    id="last-name"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: !editMode,
-                      style: editMode ? { color: '#0967FC' } : { color: '#000000' }
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={2}>
-                  <CustomInput
-                    value={{ value: gender, setValue: setGender }}
-                    labelText="Gender"
-                    id="Gender"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: !editMode,
-                      style: editMode ? { color: '#0967FC' } : { color: '#000000' }
-                    }}
-                  />
-                </GridItem>
+              {!(Object.keys(patient).length === 0 && patient.constructor === Object) ? (
+                <div>
+                  < GridContainer >
+                    <GridItem xs={12} sm={12} md={3}>
+                      <CustomInput
+                        value={{ value: firstName, setValue: setFirstName }}
+                        labelText="First Name"
+                        id="first-name"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          disabled: !editMode,
+                          style: editMode ? { color: '#0967FC' } : { color: '#000000' }
+                        }}
+                      />
+                    </GridItem>
 
-                <GridItem xs={12} sm={12} md={3}>
-                  <CustomInput
-                    value={{ value: birthdate, setValue: setBirthdate }}
-                    labelText="Birth date"
-                    id="Birthdate"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: !editMode,
-                      style: editMode ? { color: '#0967FC' } : { color: '#000000' }
-                    }}
-                  />
-                </GridItem>
 
-                <GridItem xs={12} sm={12} md={4}>
-                  <CustomInput
-                    value={{ value: hmo, setValue: setHmo }}
-                    labelText="Health maintenance organization"
-                    id="hmo"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: !editMode,
-                      style: editMode ? { color: '#0967FC' } : { color: '#000000' }
-                    }}
-                  />
-                </GridItem>
-
-                <GridItem xs={12} sm={12} md={5}>
-                  <CustomInput
-                    value={{ value: address, setValue: setAddress }}
-                    labelText="Address"
-                    id="address"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: !editMode,
-                      style: editMode ? { color: '#0967FC' } : { color: '#000000' }
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={3}>
-                  <CustomInput
-                    value={{ value: phone1, setValue: setPhone1 }}
-                    labelText="Phone number"
-                    id="phone1"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: !editMode,
-                      style: editMode ? { color: '#0967FC' } : { color: '#000000' }
-                    }}
-                  />
-                </GridItem>
-
-                <GridItem xs={21} sm={21} md={3}>
-                  <CustomInput
-                    value={{ value: phone2, setValue: setPhone2 }}
-
-                    labelText="Tel"
-                    id="tel"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: !editMode,
-                      style: editMode ? { color: '#0967FC' } : { color: '#000000' }
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-              <br></br>
-
-              {/* vaccine */}
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={3}>
-                  <CustomInput
-                    value={{ value: vaccineStatus, setValue: setVaccineStatus }}
-                    labelText="vaccine Status"
-                    id="vaccineStatus"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: !editMode,
-                      style: editMode ? { color: '#0967FC' } : { color: '#000000' }
-                    }}
-                  />
-                </GridItem>
-                <GridItem xs={12} sm={12} md={5}>
-                  <CustomInput
-                    value={{ value: medicationSensitivity, setValue: setMedicationSensitivity }}
-                    labelText="medication Sensitivity"
-                    id="medicationSensitivity"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      disabled: !editMode,
-                      style: editMode ? { color: '#0967FC' } : { color: '#000000' }
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
-              <br></br>
+                    <GridItem xs={12} sm={12} md={3}>
+                      <CustomInput
+                        value={{ value: middleName, setValue: setMiddleName }}
+                        labelText="Middle Name"
+                        id="middle-name"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          disabled: !editMode,
+                          style: editMode ? { color: '#0967FC' } : { color: '#000000' }
+                        }}
+                      />
+                    </GridItem>
 
 
 
-              <GridContainer>
-                <GridItem xs={21} sm={21} md={12}>
-                  <InputLabel style={{ color: "#AAAAAA" }}>Notes:</InputLabel>
-                  <CustomInput
-                    value={{ value: notes, setValue: setNotes }}
-                    id="notes"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{
-                      multiline: true,
-                      rows: 5,
-                      disabled: !editMode,
-                      style: editMode ? { color: '#0967FC' } : { color: '#000000' }
-                    }}
-                  />
-                </GridItem>
-              </GridContainer>
+                    <GridItem xs={12} sm={12} md={3}>
+                      <CustomInput
+                        value={{ value: lastName, setValue: setLastName }}
+                        labelText="Last Name"
+                        id="last-name"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          disabled: !editMode,
+                          style: editMode ? { color: '#0967FC' } : { color: '#000000' }
+                        }}
+                      />
+                    </GridItem>
+
+
+
+
+                    <GridItem xs={12} sm={12} md={2}>
+                      <CustomInput
+                        value={{ value: gender, setValue: setGender }}
+                        labelText="Gender"
+                        id="Gender"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          disabled: !editMode,
+                          style: editMode ? { color: '#0967FC' } : { color: '#000000' }
+                        }}
+                      />
+                    </GridItem>
+
+                    <GridItem xs={12} sm={12} md={3}>
+                      <CustomInput
+                        value={{ value: birthdate, setValue: setBirthdate }}
+                        labelText="Birth date"
+                        id="Birthdate"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          disabled: !editMode,
+                          style: editMode ? { color: '#0967FC' } : { color: '#000000' }
+                        }}
+                      />
+                    </GridItem>
+
+                    <GridItem xs={12} sm={12} md={4}>
+                      <CustomInput
+                        value={{ value: hmo, setValue: setHmo }}
+                        labelText="Health maintenance organization"
+                        id="hmo"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          disabled: !editMode,
+                          style: editMode ? { color: '#0967FC' } : { color: '#000000' }
+                        }}
+                      />
+                    </GridItem>
+
+                    <GridItem xs={12} sm={12} md={5}>
+                      <CustomInput
+                        value={{ value: address, setValue: setAddress }}
+                        labelText="Address"
+                        id="address"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          disabled: !editMode,
+                          style: editMode ? { color: '#0967FC' } : { color: '#000000' }
+                        }}
+                      />
+                    </GridItem>
+
+
+
+                    <GridItem xs={12} sm={12} md={3}>
+                      <CustomInput
+                        value={{ value: phone1, setValue: setPhone1 }}
+                        labelText="Phone number"
+                        id="phone1"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          disabled: !editMode,
+                          style: editMode ? { color: '#0967FC' } : { color: '#000000' }
+                        }}
+                      />
+                    </GridItem>
+
+                    <GridItem xs={21} sm={21} md={3}>
+                      <CustomInput
+                        value={{ value: phone2, setValue: setPhone2 }}
+
+                        labelText="Tel"
+                        id="tel"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          disabled: !editMode,
+                          style: editMode ? { color: '#0967FC' } : { color: '#000000' }
+                        }}
+                      />
+                    </GridItem>
+
+
+                  </GridContainer>
+                  <br></br>
+
+                  {/* vaccine */}
+                  <GridContainer>
+                    <GridItem xs={12} sm={12} md={3}>
+                      <CustomInput
+                        value={{ value: vaccineStatus, setValue: setVaccineStatus }}
+                        labelText="vaccine Status"
+                        id="vaccineStatus"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          disabled: !editMode,
+                          style: editMode ? { color: '#0967FC' } : { color: '#000000' }
+                        }}
+                      />
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={5}>
+                      <CustomInput
+                        value={{ value: medicationSensitivity, setValue: setMedicationSensitivity }}
+                        labelText="medication Sensitivity"
+                        id="medicationSensitivity"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          disabled: !editMode,
+                          style: editMode ? { color: '#0967FC' } : { color: '#000000' }
+                        }}
+                      />
+                    </GridItem>
+                  </GridContainer>
+                  <br></br>
+
+
+
+                  <GridContainer>
+                    <GridItem xs={21} sm={21} md={12}>
+                      <InputLabel style={{ color: "#AAAAAA" }}>Notes:</InputLabel>
+                      <CustomInput
+                        value={{ value: notes, setValue: setNotes }}
+                        id="notes"
+                        formControlProps={{
+                          fullWidth: true
+                        }}
+                        inputProps={{
+                          multiline: true,
+                          rows: 5,
+                          disabled: !editMode,
+                          style: editMode ? { color: '#0967FC' } : { color: '#000000' }
+                        }}
+                      />
+                    </GridItem>
+                  </GridContainer>
+
+
+                </div>
+
+              ) : (null)
+              }
+
+
+
 
 
             </CardBody>
             <CardFooter>
-              {editMode === false ? (
-                <Button color="primary">Continue</Button>
+              {!(Object.keys(patient).length === 0 && patient.constructor === Object) ? (
+
+                editMode === false ? (
+                  <Button color="primary">Continue</Button>
+                ) : null
+
               ) : null
               }
-
             </CardFooter>
           </Card>
         </GridItem>
       </GridContainer>
-    </div>
+    </div >
   );
 }
 
