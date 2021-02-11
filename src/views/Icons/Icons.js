@@ -11,11 +11,8 @@ export default function Icons() {
   return (
     <div>
 
-      <h1>this is Icons screen</h1>
+      <h1>session vaccin table</h1>
 
-      <h1>TODO</h1>
-
-      <h1>set you code here.....</h1>
     </div>
   );
 }

@@ -104,7 +104,7 @@ export default function Admin({ ...rest }) {
     <div className={classes.wrapper}>
       <Sidebar
         routes={routes}
-        logoText={"Clinic Name"}
+        logoText={"Allergy & Immunology Unit, Meir Hospital"}
         logo={logo}
         image={image}
         handleDrawerToggle={handleDrawerToggle}

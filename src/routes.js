@@ -56,7 +56,7 @@ const dashboardRoutes = [
   },
   {
     path: "/table",
-    name: "Patient",
+    name: "New Session",
     rtlName: "قائمة الجدول",
     icon: "content_paste",
     component: TableList,
@@ -64,7 +64,7 @@ const dashboardRoutes = [
   },
   {
     path: "/typography",
-    name: "Doctors",
+    name: "Insert New Patients",
     rtlName: "طباعة",
     icon: LibraryBooks,
     component: Typography,
@@ -72,7 +72,7 @@ const dashboardRoutes = [
   },
   {
     path: "/icons",
-    name: "Patients",
+    name: "Substance -Now Tmp",
     rtlName: "الرموز",
     icon: BubbleChart,
     component: Icons,
@@ -80,7 +80,7 @@ const dashboardRoutes = [
   },
   {
     path: "/maps",
-    name: "Payments",
+    name: "Contacts",
     rtlName: "خرائط",
     icon: LocationOn,
     component: Maps,
@@ -88,7 +88,7 @@ const dashboardRoutes = [
   },
   {
     path: "/upgrade-to-pro",
-    name: "Insurance Company",
+    name: "View Protocols",
     rtlName: "التطور للاحترافية",
     icon: Unarchive,
     component: UpgradeToPro,
@@ -96,7 +96,7 @@ const dashboardRoutes = [
   },
   {
     path: "/notifications",
-    name: "Notifications",
+    name: "Reserches Data -Now Temp",
     rtlName: "إخطارات",
     icon: Notifications,
     component: NotificationsPage,
