@@ -101,7 +101,7 @@ const dashboardRoutes = [
     icon: Notifications,
     component: NotificationsPage,
     layout: "/admin"
-  }
+  }//,
 
 
 
@@ -114,12 +114,12 @@ const dashboardRoutes = [
   //   layout: "/rtl"
   // },
   // {
-  //   path: "/upgrade-to-pro",
-  //   name: "Upgrade To PRO",
-  //   rtlName: "التطور للاحترافية",
-  //   icon: Unarchive,
-  //   component: UpgradeToPro,
-  //   layout: "/admin"
+  //   path: "/rtl-page",
+  //   name: "Temp page",
+  //   rtlName: "پشتیبانی از راست به چپ",
+  //   icon: Language,
+  //   component: RTLPage,
+  //   layout: "/rtl"
   // }
 ];
 
