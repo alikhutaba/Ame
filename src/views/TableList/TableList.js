@@ -53,16 +53,11 @@ export default function UserProfile() {
   const [vaccineStatus, setVaccineStatus] = useState("")
   const [medicationSensitivity, setMedicationSensitivity] = useState("")
   const [notes, setNotes] = useState("")
-
   const [editMode, setEditMode] = useState(false)
-
   const [patient, setPatient] = useState({})
 
 
   function getPatientById() {
-
-
-
     console.log(patient)
     console.log("input", searchID)
 
@@ -140,6 +135,24 @@ export default function UserProfile() {
     console.log(Object.keys(patient).length === 0 && patient.constructor === Object)
     return !(Object.keys(patient).length === 0 && patient.constructor === Object)
 
+  }
+
+  function NewSessionForPatient(){
+    console.log("ShirA")//I have no idia what have I done... can't see without DB....!
+
+    fetch('C:\Users\Shir Ams\Desktop\פרויקט גמר רפואית\Ame\src\views\Icons\Icons.js')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.blob();
+    })
+    .then(Icon => {
+      Icon.src = URL.createObjectURL(Icon);
+    })
+    .catch(error => {
+      console.error('There has been a problem with your fetch operation:', error);
+    });
   }
 
   return (
@@ -400,7 +413,11 @@ export default function UserProfile() {
                       />
                     </GridItem>
                   </GridContainer>
-
+                    <GridContainer>
+                      <GridItem>
+                        <Button id="button-StertSession" type="button" color="danger" size="sm" onClick={NewSessionForPatient}>Continue to session</Button>
+                      </GridItem>
+                    </GridContainer>
 
                 </div>
 

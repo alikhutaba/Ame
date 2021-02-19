@@ -130,7 +130,7 @@ export default function Dashboard() {
                 <GridItem xs={12} sm={12} md={8}>
                   <CustomInput
                     labelText="Serch by ID number:"
-                    id="SEARCH_USER"
+                    id="SEARCH_USER"//but it is for patients, not users?
                     formControlProps={{
                       fullWidth: true
                     }}

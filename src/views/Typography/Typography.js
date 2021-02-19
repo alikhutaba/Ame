@@ -50,9 +50,9 @@ export default function TypographyPage() {
       <GridContainer>
         <GridItem xs={21} sm={21} md={17}>
           <Card>
-            <CardHeader color="warning">
+            <CardHeader color="rose">
               <h4 className={classes.cardTitleWhite}>Multy Insert Management</h4>
-              <p className={classes.cardCategoryWhite}>Add the 1 new patient:</p>
+              <p className={classes.cardCategoryWhite}>Add new patient:</p>
             </CardHeader>
             <CardBody>
               <GridContainer>
