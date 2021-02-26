@@ -65,15 +65,15 @@ export default function CustomInput(props) {
       ) : null
       }
       <Input
-        value={props.value === undefined ? null : props.value.value}
+        value={props.value === undefined ? "" : props.value.value}
         onChange={handleChange}
         classes={{
           root: marginTop,
           disabled: classes.disabled,
           underline: underlineClasses,
         }}
-        input
-        id={id}
+        // input
+        // id={id}
 
         {...inputProps}
 

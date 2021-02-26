@@ -17,6 +17,7 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
+import { SAVE_ALLERGENS } from "Redux/actionsTypes";
 
 let ps;
 
@@ -82,6 +83,7 @@ export default function Admin({ ...rest }) {
       setMobileOpen(false);
     }
   };
+
   // initialize and destroy the PerfectScrollbar plugin
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
