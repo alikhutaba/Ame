@@ -28,4 +28,16 @@ export const saveAllProtocols = protocols => ({
 });
 
 
+export const addDiagnosisNumber = number => ({
+    type: ADD_DIAGNOSIS_NUMBER,
+    payload: { number }
+});
+
+export const addDiagnosis = newDiagnosis => ({
+    type: ADD_PATIENT_DIAGNOSIS,
+    payload: { newDiagnosis }
+});
+
+
+
 

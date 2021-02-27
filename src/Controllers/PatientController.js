@@ -1,9 +1,9 @@
 
 
-async function sendPatientToServer(patient) {
+async function sendPatientToServer(patient, userId) {
     console.log("addPatient")
 
-    var userId = "123456789"
+    // var userId = "123456789"
 
     var user = await getuserbyid(userId);
     console.log(user)
@@ -13,6 +13,7 @@ async function sendPatientToServer(patient) {
 
     console.log(patient)
 
+    var responeStatus = false;
     return new Promise((resolve, reject) => {
 
         fetch(`http://localhost:8081/patient/${userId}`, {
@@ -27,19 +28,30 @@ async function sendPatientToServer(patient) {
             body: JSON.stringify(patient)
 
         }).then(function (response) {
-            console.log(response.status); // Will show you the status
-            console.log(response); // Will show you the status
-            if (!response.ok) {
-                reject({ success: false, patient: response.json() })
+            responeStatus = response.ok;
+            return response.json();
+        }).then(function (data) {
+            if (!responeStatus) {
+                reject(data)
             } else {
-                resolve({ success: true, patient: response.json() })
+                console.log(data);
+                resolve(data)
             }
-
-
         })
     })
 
 }
+
+// console.log(response.status); // Will show you the status
+// console.log(response); // Will show you the status
+// if (!response.ok) {
+//     reject({ success: false, patient: response.json() })
+// } else {
+//     resolve({ success: true, patient: response.json() })
+// }
+
+
+
 
 
 // .then(function (response) {

@@ -15,45 +15,18 @@ import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 
-import MuiPhoneNumber from 'material-ui-phone-number';
-
-import { validatePatient } from "Validators/PatientValidator";
-import { sendPatientToServer } from "Controllers/PatientController";
-
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
-
-
-
-import Store from "@material-ui/icons/Store";
-
-import DateRange from "@material-ui/icons/DateRange";
+import HealingIcon from '@material-ui/icons/Healing';
 
 import CardIcon from "components/Card/CardIcon.js";
 
+import Chip from "@material-ui/core/Chip";
+import Paper from "@material-ui/core/Paper";
 
-import avatar from "assets/img/faces/marc.jpg";
-
-import { TextField, withStyles } from '@material-ui/core';
-
-import { func } from "prop-types";
-
-import Grid from '@material-ui/core/Grid';
-import DateFnsUtils from '@date-io/date-fns';
-
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-
-import {
-    MuiPickersUtilsProvider,
-    KeyboardTimePicker,
-    KeyboardDatePicker,
-} from '@material-ui/pickers';
+// import SnackbarContent from '@material-ui/core/SnackbarContent';
+import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 
 
-const styles = {
+const useStyles = makeStyles((theme) => ({
     cardCategoryWhite: {
         color: "rgba(255,255,255,.62)",
         margin: "0",
@@ -69,82 +42,123 @@ const styles = {
         fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
         marginBottom: "3px",
         textDecoration: "none"
-    }
-
-};
-
-
-const useStyles1 = makeStyles((theme) => ({
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 320,
-        paddingTop: 15,
     },
-    phoneControl: {
-        margin: theme.spacing(1),
-        minWidth: 220,
-        paddingTop: 22,
+    root: {
+        display: "flex",
+        justifyContent: "center",
+        flexWrap: "wrap",
+        listStyle: "none",
+        padding: theme.spacing(0.5),
+        margin: 0
     },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
+    chip: {
+        margin: theme.spacing(0.5)
+    },
+    chips: {
+        paddingTop: 20,
+        paddingBottom: 10,
     },
 }));
 
-const useStyles = makeStyles(styles);
 
 export default function DiagnosisCard(props) {
 
+
     const classes = useStyles();
-    const classess = useStyles1();
-
-    const [injectionNumber, setInjectionNumber] = useState(0)
-
-
-
-
-    const handleInjectionNumber = (event) => {
-        setInjectionNumber(event.target.value);
-    };
-
-
-
-
-
-
-
-
-
-    async function finish() {
-
-    }
-
-
-
 
 
     return (
         <GridItem xs={12} sm={6} md={12}>
 
             <Card>
-                <CardHeader color="primary" stats icon>
-                    <CardIcon color="primary">
-                        <Store />
+                <CardHeader color="warning" stats icon>
+                    <CardIcon color="warning">
+                        <HealingIcon />
                     </CardIcon>
-                    {/* <p className={classes.cardCategory}>Revenue</p> */}
-                    {/* <h3 className={classes.cardTitle}>$34,245</h3> */}
-                    <Button size="lg" onClick={finish} color="primary">finish</Button>
+                    < GridContainer >
+                        <GridItem xs={12} sm={12} md={11}>
+                            <SnackbarContent
+                                color="warning"
+                                message={"Diagnos Number " + props.diangnos.diagnosisNumber} />
+                        </GridItem>
+                    </GridContainer>
 
                 </CardHeader>
-                {/* <CardBody>
-                                                <Button size="lg" onClick={finish} color="primary">finish</Button>
-                                            </CardBody> */}
+                <CardBody>
+
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={2}>
+                            <h3>Allergens</h3>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={8}>
+                            <div className={classes.chips}>
+
+                                <Paper component="ul" className={classes.root}>
+                                    {props.diangnos.allergens.map((data, i) => {
+                                        return (
+                                            <li key={data.key}>
+                                                <Chip label={data.name} className={classes.chip} color="primary" />
+                                            </li>
+                                        );
+                                    })}
+                                </Paper>
+                            </div>
+
+                        </GridItem>
+                    </GridContainer>
+
+
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={2}>
+                            <h3>Protocols</h3>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={8}>
+                            <div className={classes.chips}>
+
+                                <Paper component="ul" className={classes.root}>
+                                    {props.diangnos.protocols.map((data, i) => {
+                                        return (
+                                            <li key={data.key}>
+                                                <Chip label={data.name} className={classes.chip} color="primary" />
+                                            </li>
+                                        );
+                                    })}
+                                </Paper>
+                            </div>
+
+                        </GridItem>
+                    </GridContainer>
+
+
+                    <GridContainer>
+                        <GridItem xs={12} sm={12} md={2}>
+                            <h3>Location</h3>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={8}>
+                            <div className={classes.chips}>
+
+                                <Paper component="ul" className={classes.root}>
+                                    {props.diangnos.injectionLocation.map((data, i) => {
+                                        return (
+                                            <li key={data.key}>
+                                                <Chip label={data} className={classes.chip} color="primary" />
+                                            </li>
+                                        );
+                                    })}
+                                </Paper>
+                            </div>
+
+                        </GridItem>
+                    </GridContainer>
+
+
+                </CardBody>
 
                 <CardFooter stats>
-                    <div className={classes.stats}>Injection number {props.number}</div>
+                    {/* <div className={classes.stats}>Injection number</div> */}
                 </CardFooter>
             </Card>
         </GridItem>
     );
 }
-
 

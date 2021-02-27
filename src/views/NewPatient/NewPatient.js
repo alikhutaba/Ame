@@ -17,7 +17,7 @@ import CardFooter from "components/Card/CardFooter.js";
 
 import MuiPhoneNumber from 'material-ui-phone-number';
 
-import { validatePatient } from "Validators/PatientValidator";
+import { validatePatient } from "Validators/Validator";
 import { sendPatientToServer } from "Controllers/PatientController";
 
 import { toast } from 'react-toastify'
@@ -188,16 +188,25 @@ export default function NewPatient() {
       console.log("valid = ");
       console.log(valid);
 
-      var serverResponse = await sendPatientToServer(newPatient);
-      console.log(serverResponse);
+      await sendPatientToServer(newPatient, "123456789")
+        .then(data => {
+          console.log(data);
+          dispatch(addPatient(data));
+          history.replace('/admin/AddNewPatient/NewDiagnosis');
+        }).catch(e => {
+          console.log(e);
+        });
 
-      if (serverResponse.success === true) {
+      // var serverResponse = await sendPatientToServer(newPatient);
+      // console.log(serverResponse);
 
-        dispatch(addPatient(serverResponse.patient));
-        // history.push('/admin/AddNewPatient/NewDiagnosis');
-        history.replace('/admin/AddNewPatient/NewDiagnosis');
+      // if (serverResponse.success === true) {
 
-      }
+      //   dispatch(addPatient(serverResponse.patient));
+      //   // history.push('/admin/AddNewPatient/NewDiagnosis');
+      //   history.replace('/admin/AddNewPatient/NewDiagnosis');
+
+      // }
 
     }
 

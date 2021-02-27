@@ -9,7 +9,7 @@ const initialState = {
     logedinUser: {},
 };
 
-const allergensReducers = (state = initialState, action) => {
+const staticDataReducers = (state = initialState, action) => {
 
     switch (action.type) {
         case SAVE_ALL_ALLERGENS: {
@@ -56,4 +56,4 @@ const allergensReducers = (state = initialState, action) => {
     }
 };
 
-export default allergensReducers;
+export default staticDataReducers;

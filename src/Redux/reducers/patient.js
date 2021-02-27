@@ -19,7 +19,24 @@ const patientReducers = (state = initialState, action) => {
         case ADD_PATIENT_DETAILS: {
             const { patient } = action.payload;
             return {
+                ...state,
                 patientData: patient,
+            };
+        }
+
+        case ADD_DIAGNOSIS_NUMBER: {
+            const { number } = action.payload;
+            return {
+                ...state,
+                diagnosisNumber: number,
+            };
+        }
+
+        case ADD_PATIENT_DIAGNOSIS: {
+            const { newDiagnosis } = action.payload;
+            return {
+                ...state,
+                diagnosis: [...state.diagnosis, newDiagnosis],
             };
         }
 

@@ -2,7 +2,7 @@ import 'date-fns';
 
 import React, { useEffect, useState } from "react";
 // @material-ui/core components
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -13,8 +13,8 @@ import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 
-import { validatePatient } from "Validators/PatientValidator";
-import { sendPatientToServer } from "Controllers/PatientController";
+// import { validatePatient } from "Validators/PatientValidator";
+import { sendDiagnosisToServer } from "Controllers/DiagnosisController";
 import SelectReact from "react-select";
 
 import { toast } from 'react-toastify'
@@ -22,9 +22,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { useHistory } from "react-router-dom";
 
-import { addPatient } from '../../Redux/actions';
+import { addDiagnosis, addDiagnosisNumber } from '../../Redux/actions';
 import { useSelector, useDispatch } from "react-redux";
-import { createTrue } from 'typescript';
 
 
 const styles = {
@@ -58,17 +57,18 @@ export default function DaignosisDetails() {
     const classes = useStyles();
     const history = useHistory();
     const dispatch = useDispatch();
+
+    require('dotenv').config()
+    toast.configure()
+
     const diagnosisNumber = useSelector((state) => state.patient.diagnosisNumber);
     const allAllergens = useSelector((state) => state.staticData.allergensDB);
     const allProtocols = useSelector((state) => state.staticData.protocolsDB);
+    const patient = useSelector((state) => state.patient.patientData);
 
     const [allergens, setAllergens] = useState([])
     const [protocol, setProtocol] = useState({})
     const [locations, setLocations] = useState([])
-
-
-
-    const [personName, setPersonName] = useState([]);
 
 
     const handleAllergens = (data) => {
@@ -85,25 +85,25 @@ export default function DaignosisDetails() {
 
     async function validateDiagnosis() {
 
-        // if (Object.keys(protocol).length === 0 && protocol.constructor === Object) {
-        //     toast.error("Choose an protocol ", { position: toast.POSITION.TOP_CENTER, autoClose: 2000 })
-        //     return false;
-        // }
+        if (allergens.length === 0) {
+            toast.error("Choose an allergens ", { position: toast.POSITION.TOP_CENTER, autoClose: 2000 })
+            return false;
+        }
 
-        // if (allergens.length === 0) {
-        //     toast.error("Choose an allergens ", { position: toast.POSITION.TOP_CENTER, autoClose: 2000 })
-        //     return false;
-        // }
+        if (Object.keys(protocol).length === 0 && protocol.constructor === Object) {
+            toast.error("Choose an protocol ", { position: toast.POSITION.TOP_CENTER, autoClose: 2000 })
+            return false;
+        }
 
-        // if (locations.length === 0) {
-        //     toast.error("Choose an location ", { position: toast.POSITION.TOP_CENTER, autoClose: 2000 })
-        //     return false;
-        // }
+        if (locations.length === 0) {
+            toast.error("Choose an location ", { position: toast.POSITION.TOP_CENTER, autoClose: 2000 })
+            return false;
+        }
 
+        return true;
     }
 
     async function saveDiagnosis() {
-        const newPatient = {};
         var validDiagnosis = await validateDiagnosis();
 
         // newPatient.patientId = patientId;
@@ -111,23 +111,39 @@ export default function DaignosisDetails() {
         // newPatient.lastName = lastName;
 
 
-        var valid = await validatePatient(newPatient);
-        console.log("savePatient");
+        if (validDiagnosis) {
 
-        if (valid) {
-            console.log("valid = ");
-            console.log(valid);
+            const newDiagnosis = {};
 
-            var serverResponse = await sendPatientToServer(newPatient);
-            console.log(serverResponse);
+            newDiagnosis.diagnosisNumber = diagnosisNumber;
+            newDiagnosis.injectionLocation = locations[0];
+            newDiagnosis.patient = patient;
+            newDiagnosis.allergens = allergens;
 
-            if (serverResponse.success === true) {
 
-                dispatch(addPatient(serverResponse.patient));
-                // history.push('/admin/AddNewPatient/NewDiagnosis');
-                history.replace('/admin/AddNewPatient/NewDiagnosis');
+            console.log(newDiagnosis);
 
-            }
+
+            // var serverResponse = await sendDiagnosisToServer(newDiagnosis);
+            // console.log(serverResponse);
+
+            await sendDiagnosisToServer(newDiagnosis, "123456789")
+                .then(data => {
+                    console.log(data);
+                    dispatch(addDiagnosisNumber(diagnosisNumber + 1));
+                    dispatch(addDiagnosis(data));
+                    history.replace('/admin/AddNewPatient/NewDiagnosis');
+                }).catch(e => {
+                    console.log(e);
+                });
+
+            // if (serverResponse.success === true) {
+
+            //     dispatch(addPatient(serverResponse.patient));
+            //     // history.push('/admin/AddNewPatient/NewDiagnosis');
+            //     history.replace('/admin/AddNewPatient/NewDiagnosis');
+
+            // }
 
         }
 
@@ -148,11 +164,11 @@ export default function DaignosisDetails() {
                         <CardBody>
 
                             {/* ------------- INJECTION NUMBER -------------*/}
-                            {/* < GridContainer >
+                            < GridContainer >
                                 <GridItem xs={12} sm={12} md={6}>
                                     <SnackbarContent message={"Injection Number " + diagnosisNumber} />
                                 </GridItem>
-                            </GridContainer> */}
+                            </GridContainer>
 
 
                             {/* ------------- ALLERGENS -------------*/}

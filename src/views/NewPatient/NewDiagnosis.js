@@ -1,9 +1,7 @@
-import 'date-fns';
 
 import React, { useEffect, useState } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -11,55 +9,26 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
-import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 
-import MuiPhoneNumber from 'material-ui-phone-number';
 
-import { validatePatient } from "Validators/PatientValidator";
+// import { validatePatient } from "Validators/PatientValidator";
 import { sendPatientToServer } from "Controllers/PatientController";
 
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
+import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 
 import {
     BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    Redirect,
     useHistory
 } from "react-router-dom";
 
-import Store from "@material-ui/icons/Store";
 
-import DateRange from "@material-ui/icons/DateRange";
 
-import CardIcon from "components/Card/CardIcon.js";
 import DiagnosisCard from "./DiagnosisCard";
-
-
-import avatar from "assets/img/faces/marc.jpg";
-
-import { TextField, withStyles } from '@material-ui/core';
-
-import { func } from "prop-types";
-
-import Grid from '@material-ui/core/Grid';
-import DateFnsUtils from '@date-io/date-fns';
-
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-
-import {
-    MuiPickersUtilsProvider,
-    KeyboardTimePicker,
-    KeyboardDatePicker,
-} from '@material-ui/pickers';
 
 
 import { getallAllergensFromServer } from "Controllers/AllergensController";
@@ -90,32 +59,18 @@ const styles = {
 };
 
 
-const useStyles1 = makeStyles((theme) => ({
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 320,
-        paddingTop: 15,
-    },
-    phoneControl: {
-        margin: theme.spacing(1),
-        minWidth: 220,
-        paddingTop: 22,
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
-}));
 
 const useStyles = makeStyles(styles);
 
 export default function NewDiagnosis() {
 
     const classes = useStyles();
-    const classess = useStyles1();
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [injectionNumber, setInjectionNumber] = useState(3)
+    const diagnosis = useSelector((state) => state.patient.diagnosis);
+
+    const [diagnosisNumber, setDiagnosisNumber] = useState(2)
 
     useEffect(() => {
         saveAllergense();
@@ -181,11 +136,13 @@ export default function NewDiagnosis() {
                                 <GridItem xs={12} sm={12} md={3}>
                                     <Button size="lg" onClick={addDiagnosis} color="primary">Add Diagnosis</Button>
                                 </GridItem>
+                                {/* <GridItem xs={12} sm={12} md={6}>
+                                    <SnackbarContent message={"You added " + diagnosisNumber + " From 5."} />
+                                </GridItem> */}
 
-
-                                <GridItem xs={12} sm={12} md={2}>
+                                {/* <GridItem xs={12} sm={12} md={2}>
                                     <CustomInput
-                                        value={{ value: injectionNumber, setValue: setInjectionNumber }}
+                                        value={{ value: diagnosisNumber, setValue: setDiagnosisNumber }}
                                         labelText="Diagnosis number"
                                         formControlProps={{
                                             fullWidth: true,
@@ -195,29 +152,19 @@ export default function NewDiagnosis() {
                                             style: { color: '#0967FC' },
                                         }}
                                     />
-                                </GridItem>
-
-
+                                </GridItem> */}
                             </GridContainer>
 
 
                             <GridContainer>
-                                {[...Array(injectionNumber)].map((e, i) =>
+                                {demoDiagnosis.map((diangnos, i) =>
 
-
-                                    <DiagnosisCard number={i}></DiagnosisCard>
-
-
+                                    <DiagnosisCard diangnos={diangnos}></DiagnosisCard>
                                 )}
                             </GridContainer>
 
 
-
-
-
                         </CardBody>
-
-
                         <CardFooter>
                             <Button onClick={finish} color="primary">finish</Button>
                         </CardFooter>
@@ -231,31 +178,99 @@ export default function NewDiagnosis() {
 
 
 
-{/* <GridContainer>
-{[...Array(injectionNumber)].map((e, i) =>
 
 
 
-
-                                <DiagnosisCard number={i}></DiagnosisCard>
-
-                                <GridItem xs={12} sm={6} md={4}>
-
-                                    <Card>
-                                        <CardHeader color="primary" stats icon>
-                                            <CardIcon color="primary">
-                                                <Store />
-                                            </CardIcon>
-<Button size="lg" onClick={finish} color="primary">finish</Button>
-
-                                        </CardHeader >
-
-
-< CardFooter stats >
-    <div className={classes.stats}>Injection number {i}</div>
-                                        </CardFooter >
-                                    </Card >
-                                </GridItem >
-
-)}
-</GridContainer > */}
+const demoDiagnosis =
+    [
+        {
+            diagnosId: 51,
+            diagnosisNumber: 1,
+            injectionLocation: ['Left', 'Left', 'Left', 'Left', 'Left', 'Left', 'Left',],
+            allergens: [
+                {
+                    id: 3,
+                    name: 'Olive'
+                },
+                {
+                    id: 2,
+                    name: 'Cypress'
+                },
+                {
+                    id: 1,
+                    name: 'Acacia'
+                }
+            ],
+            protocols: [
+                {
+                    protocolId: 12,
+                    name: "Normal Dust"
+                },
+                {
+                    protocolId: 13,
+                    name: "Careful Bee"
+                },
+                {
+                    protocolId: 14,
+                    name: "Normal Cat"
+                }
+            ]
+        },
+        {
+            diagnosId: 51,
+            diagnosisNumber: 2,
+            injectionLocation: ['Left', 'Left', 'Left', 'Left', 'Left', 'Left', 'Left',],
+            allergens: [
+                {
+                    id: 3,
+                    name: 'Olive'
+                },
+                {
+                    id: 2,
+                    name: 'Cypress'
+                },
+                {
+                    id: 1,
+                    name: 'Acacia'
+                }
+            ],
+            protocols: [
+                {
+                    protocolId: 12,
+                    name: "Normal Dust"
+                },
+                {
+                    protocolId: 13,
+                    name: "Careful Bee"
+                },
+                {
+                    protocolId: 14,
+                    name: "Normal Cat"
+                },
+                {
+                    protocolId: 12,
+                    name: "Normal Dust"
+                },
+                {
+                    protocolId: 13,
+                    name: "Careful Bee"
+                },
+                {
+                    protocolId: 14,
+                    name: "Normal Cat"
+                },
+                {
+                    protocolId: 12,
+                    name: "Normal Dust"
+                },
+                {
+                    protocolId: 13,
+                    name: "Careful Bee"
+                },
+                {
+                    protocolId: 14,
+                    name: "Normal Cat"
+                }
+            ]
+        }
+    ]
