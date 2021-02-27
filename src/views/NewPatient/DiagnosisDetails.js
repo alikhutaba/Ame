@@ -25,6 +25,7 @@ import { useHistory } from "react-router-dom";
 import { addDiagnosis, addDiagnosisNumber } from '../../Redux/actions';
 import { useSelector, useDispatch } from "react-redux";
 
+import Dialog from '@material-ui/core/Dialog';
 
 const styles = {
     cardCategoryWhite: {
@@ -47,6 +48,7 @@ const styles = {
         paddingTop: 20,
         paddingBottom: 10,
     },
+
 
 };
 
@@ -151,86 +153,80 @@ export default function DaignosisDetails() {
 
 
     return (
-        <div>
-            <GridContainer>
-
-                <GridItem xs={12} sm={12} md={12}>
-                    <Card>
-                        <CardHeader color={"primary"}>
-                            <h3 className={classes.cardTitleWhite}>New Diagnosis</h3>
-                            <h5 className={classes.cardCategoryWhite}>{"Diagnosis number "}{diagnosisNumber}</h5>
-                        </CardHeader>
-
-                        <CardBody>
-
-                            {/* ------------- INJECTION NUMBER -------------*/}
-                            < GridContainer >
-                                <GridItem xs={12} sm={12} md={6}>
-                                    <SnackbarContent message={"Injection Number " + diagnosisNumber} />
-                                </GridItem>
-                            </GridContainer>
 
 
-                            {/* ------------- ALLERGENS -------------*/}
-                            < GridContainer >
-                                <GridItem xs={12} sm={12} md={2}>
-                                    <h3>Allergens</h3>
-                                </GridItem>
-                                <GridItem xs={12} sm={12} md={8}>
-                                    <div className={classes.chip}>
-                                        <SelectReact
-                                            closeMenuOnSelect={false}
-                                            isMulti
-                                            options={allAllergens.map(allergen => ({ value: allergen, label: allergen.name }))}
-                                            onChange={handleAllergens}
-                                        />
-                                    </div>
-                                </GridItem>
-                            </GridContainer>
+        <GridContainer>
 
-                            {/* ------------- PROTOCOL -------------*/}
-                            < GridContainer >
-                                <GridItem xs={12} sm={12} md={2}>
-                                    <h3>Protocol</h3>
-                                </GridItem>
-                                <GridItem xs={12} sm={12} md={8}>
-                                    <div className={classes.chip}>
-                                        <SelectReact
-                                            // closeMenuOnSelect={false}
-                                            // isMulti
-                                            options={allProtocols.map(protocol => ({ value: protocol, label: protocol.name }))}
-                                            onChange={handleProtocol}
-                                        />
-                                    </div>
-                                </GridItem>
-                            </GridContainer>
+            <GridItem xs={12} sm={12} md={12}>
+                <Card>
+                    <CardHeader color={"primary"}>
+                        <h3 className={classes.cardTitleWhite}>New Diagnosis</h3>
+                        <h5 className={classes.cardCategoryWhite}>{"Diagnosis number "}{diagnosisNumber}</h5>
+                    </CardHeader>
+
+                    <CardBody>
 
 
-                            {/* ------------- LOCATION -------------*/}
-                            < GridContainer >
-                                <GridItem xs={12} sm={12} md={2}>
-                                    <h3>Location</h3>
-                                </GridItem>
-                                <GridItem xs={12} sm={12} md={8}>
-                                    <div className={classes.chip}>
-                                        <SelectReact
-                                            closeMenuOnSelect={false}
-                                            isMulti
-                                            options={Locations}
-                                            onChange={handleLocation}
-                                        />
-                                    </div>
-                                </GridItem>
-                            </GridContainer>
-                        </CardBody>
+                        {/* ------------- ALLERGENS -------------*/}
+                        < GridContainer >
+                            <GridItem xs={12} sm={12} md={2}>
+                                <h3>Allergens</h3>
+                            </GridItem>
+                            <GridItem xs={12} sm={12} md={8}>
+                                <div className={classes.chip}>
+                                    <SelectReact
+                                        closeMenuOnSelect={false}
+                                        isMulti
+                                        options={allAllergens.map(allergen => ({ value: allergen, label: allergen.name }))}
+                                        onChange={handleAllergens}
+                                    />
+                                </div>
+                            </GridItem>
+                        </GridContainer>
 
-                        <CardFooter>
-                            <Button onClick={saveDiagnosis} color="primary">Save</Button>
-                        </CardFooter>
-                    </Card>
-                </GridItem>
-            </GridContainer>
-        </div >
+                        {/* ------------- PROTOCOL -------------*/}
+                        < GridContainer >
+                            <GridItem xs={12} sm={12} md={2}>
+                                <h3>Protocol</h3>
+                            </GridItem>
+                            <GridItem xs={12} sm={12} md={8}>
+                                <div className={classes.chip}>
+                                    <SelectReact
+                                        // closeMenuOnSelect={false}
+                                        // isMulti
+                                        options={allProtocols.map(protocol => ({ value: protocol, label: protocol.name }))}
+                                        onChange={handleProtocol}
+                                    />
+                                </div>
+                            </GridItem>
+                        </GridContainer>
+
+
+                        {/* ------------- LOCATION -------------*/}
+                        < GridContainer >
+                            <GridItem xs={12} sm={12} md={2}>
+                                <h3>Location</h3>
+                            </GridItem>
+                            <GridItem xs={12} sm={12} md={8}>
+                                <div className={classes.chip}>
+                                    <SelectReact
+                                        closeMenuOnSelect={false}
+                                        isMulti
+                                        options={Locations}
+                                        onChange={handleLocation}
+                                    />
+                                </div>
+                            </GridItem>
+                        </GridContainer>
+                    </CardBody>
+
+                    <CardFooter>
+                        <Button onClick={saveDiagnosis} color="primary">Save</Button>
+                    </CardFooter>
+                </Card>
+            </GridItem>
+        </GridContainer>
+
     );
 }
 

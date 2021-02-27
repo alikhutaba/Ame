@@ -5,30 +5,23 @@ import { makeStyles } from "@material-ui/core/styles";
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 
-
-// import { validatePatient } from "Validators/PatientValidator";
-import { sendPatientToServer } from "Controllers/PatientController";
-
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
-
-import SnackbarContent from "components/Snackbar/SnackbarContent.js";
-
 import {
     BrowserRouter as Router,
     useHistory
 } from "react-router-dom";
 
-
-
 import DiagnosisCard from "./DiagnosisCard";
+import DaignosisDetails from "./DiagnosisDetails";
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
 
 
 import { getallAllergensFromServer } from "Controllers/AllergensController";
@@ -36,7 +29,6 @@ import { getallProtocolsFromServer } from "Controllers/ProtocolsController";
 
 import { saveAllAllergens, saveAllProtocols } from '../../Redux/actions';
 import { useSelector, useDispatch } from "react-redux";
-
 
 const styles = {
     cardCategoryWhite: {
@@ -58,8 +50,6 @@ const styles = {
 
 };
 
-
-
 const useStyles = makeStyles(styles);
 
 export default function NewDiagnosis() {
@@ -71,6 +61,8 @@ export default function NewDiagnosis() {
     const diagnosis = useSelector((state) => state.patient.diagnosis);
 
     const [diagnosisNumber, setDiagnosisNumber] = useState(2)
+
+    const [newDiagnosisOpen, setNewDiagnosisOpen] = React.useState(false);
 
     useEffect(() => {
         saveAllergense();
@@ -100,12 +92,14 @@ export default function NewDiagnosis() {
     }
 
 
-
-
-    async function addDiagnosis() {
-        history.push('/admin/AddNewPatient/NewDiagnosis/DaignosisDetails');
-
+    function addDiagnosis() {
+        // history.push('/admin/AddNewPatient/NewDiagnosis/DaignosisDetails');
+        setNewDiagnosisOpen(true)
     }
+
+    const handleClose = () => {
+        setNewDiagnosisOpen(false);
+    };
 
 
     function finish() {
@@ -113,13 +107,31 @@ export default function NewDiagnosis() {
 
     }
 
-
-
-
-
     return (
         <div>
             <GridContainer>
+
+                <Dialog
+                    fullWidth={true}
+                    maxWidth="lg"
+                    open={newDiagnosisOpen}
+                    onClose={handleClose}
+                    aria-labelledby="form-dialog-title">
+                    <DialogContent>
+
+                        <DaignosisDetails></DaignosisDetails>
+                    </DialogContent>
+
+                    {/* <DialogActions>
+                        <Button onClick={handleClose} color="primary">
+                            Cancel
+          </Button>
+                        <Button onClick={handleClose} color="primary">
+                            Subscribe
+          </Button>
+                    </DialogActions> */}
+                </Dialog>
+
 
                 <GridItem xs={12} sm={12} md={12}>
                     <Card>
@@ -131,34 +143,16 @@ export default function NewDiagnosis() {
                         <CardBody>
 
 
-                            {/* ------------- injectionNumber -------------*/}
+                            {/* ------------- Add diagnosis button -------------*/}
                             < GridContainer >
                                 <GridItem xs={12} sm={12} md={3}>
                                     <Button size="lg" onClick={addDiagnosis} color="primary">Add Diagnosis</Button>
                                 </GridItem>
-                                {/* <GridItem xs={12} sm={12} md={6}>
-                                    <SnackbarContent message={"You added " + diagnosisNumber + " From 5."} />
-                                </GridItem> */}
-
-                                {/* <GridItem xs={12} sm={12} md={2}>
-                                    <CustomInput
-                                        value={{ value: diagnosisNumber, setValue: setDiagnosisNumber }}
-                                        labelText="Diagnosis number"
-                                        formControlProps={{
-                                            fullWidth: true,
-                                        }}
-                                        inputProps={{
-                                            disabled: true,
-                                            style: { color: '#0967FC' },
-                                        }}
-                                    />
-                                </GridItem> */}
                             </GridContainer>
 
 
                             <GridContainer>
                                 {demoDiagnosis.map((diangnos, i) =>
-
                                     <DiagnosisCard diangnos={diangnos}></DiagnosisCard>
                                 )}
                             </GridContainer>
