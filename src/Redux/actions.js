@@ -1,19 +1,31 @@
 import {
-    ADD_PATIENT_DETAILS,
-    REMOVE_PATIENT_DETAILS,
-    ADD_PATIENT_DIAGNOSIS,
-    REMOVE_PATIENT_DIAGNOSIS,
-    ADD_DIAGNOSIS_NUMBER,
-    REMOVE_DIAGNOSIS_NUMBER,
+    ADD_NEW_PATIENT_DETAILS,
+    ADD_NEW_PATIENT_DIAGNOSIS,
+    ADD_NEW_DIAGNOSIS_NUMBER,
     SAVE_ALL_ALLERGENS,
     SAVE_ALL_PROTOCOLS,
+    ADD_DEMO,
+    REMOVE_DEMO,
 } from "./actionsTypes";
 
 
 export const addPatient = patient => ({
-    type: ADD_PATIENT_DETAILS,
+    type: ADD_NEW_PATIENT_DETAILS,
     payload: { patient }
 });
+
+export const addDiagnosisNumber = number => ({
+    type: ADD_NEW_DIAGNOSIS_NUMBER,
+    payload: { number }
+});
+
+export const addDiagnosis = newDiagnosis => ({
+    type: ADD_NEW_PATIENT_DIAGNOSIS,
+    payload: { newDiagnosis }
+});
+
+
+
 
 
 export const saveAllAllergens = allergens => ({
@@ -28,15 +40,26 @@ export const saveAllProtocols = protocols => ({
 });
 
 
-export const addDiagnosisNumber = number => ({
-    type: ADD_DIAGNOSIS_NUMBER,
-    payload: { number }
+
+
+
+
+
+
+
+export const addDemo = demo => ({
+    type: ADD_DEMO,
+    payload: { demo }
 });
 
-export const addDiagnosis = newDiagnosis => ({
-    type: ADD_PATIENT_DIAGNOSIS,
-    payload: { newDiagnosis }
+
+export const removeDemo = demo => ({
+    type: REMOVE_DEMO,
+    payload: { demo }
 });
+
+
+
 
 
 

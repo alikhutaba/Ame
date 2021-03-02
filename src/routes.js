@@ -37,7 +37,7 @@ import Maps from "views/Maps/Maps.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
 import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
 
-import AddPatientPage from "views/NewPatient/AddPatient";
+import NewPatient from "views/NewPatient/NewPatient";
 
 
 
@@ -64,7 +64,7 @@ const dashboardRoutes = [
     name: "add Patient",
     // rtlName: "מטופל חדש",
     icon: AddCircleIcon,
-    component: AddPatientPage,
+    component: NewPatient,
     layout: "/admin"
   },
 

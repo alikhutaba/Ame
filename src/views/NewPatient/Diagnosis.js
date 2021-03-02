@@ -11,13 +11,9 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 
-import {
-    BrowserRouter as Router,
-    useHistory
-} from "react-router-dom";
 
 import DiagnosisCard from "./DiagnosisCard";
-import DaignosisDetails from "./DiagnosisDetails";
+import DiagnosisForm from "./DiagnosisForm";
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -52,17 +48,16 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function NewDiagnosis() {
+export default function NewDiagnosis(props) {
 
     const classes = useStyles();
-    const history = useHistory();
     const dispatch = useDispatch();
 
-    const diagnosis = useSelector((state) => state.patient.diagnosis);
-
-    const [diagnosisNumber, setDiagnosisNumber] = useState(2)
+    const diagnosis = useSelector((state) => state.NewPatient.diagnosis);
 
     const [newDiagnosisOpen, setNewDiagnosisOpen] = React.useState(false);
+
+
 
     useEffect(() => {
         saveAllergense();
@@ -70,20 +65,15 @@ export default function NewDiagnosis() {
 
     }, []);
 
-
     async function saveAllergense() {
-
         await getallAllergensFromServer("123456789")
             .then(data => {
                 dispatch(saveAllAllergens(data));
             }).catch(e => {
             });
-
-
     }
 
     async function saveProtocols() {
-
         await getallProtocolsFromServer("123456789")
             .then(data => {
                 dispatch(saveAllProtocols(data));
@@ -93,7 +83,6 @@ export default function NewDiagnosis() {
 
 
     function addDiagnosis() {
-        // history.push('/admin/AddNewPatient/NewDiagnosis/DaignosisDetails');
         setNewDiagnosisOpen(true)
     }
 
@@ -103,8 +92,7 @@ export default function NewDiagnosis() {
 
 
     function finish() {
-        history.push('/admin/AddNewPatient/NewPatient');
-
+        props.finish();
     }
 
     return (
@@ -118,8 +106,7 @@ export default function NewDiagnosis() {
                     onClose={handleClose}
                     aria-labelledby="form-dialog-title">
                     <DialogContent>
-
-                        <DaignosisDetails></DaignosisDetails>
+                        <DiagnosisForm close={handleClose}></DiagnosisForm>
                     </DialogContent>
 
                     {/* <DialogActions>
@@ -152,15 +139,15 @@ export default function NewDiagnosis() {
 
 
                             <GridContainer>
-                                {demoDiagnosis.map((diangnos, i) =>
-                                    <DiagnosisCard diangnos={diangnos}></DiagnosisCard>
+                                {diagnosis.map((diangnos, i) =>
+                                    <DiagnosisCard key={i} diangnos={diangnos}></DiagnosisCard>
                                 )}
                             </GridContainer>
 
 
                         </CardBody>
                         <CardFooter>
-                            <Button onClick={finish} color="primary">finish</Button>
+                            <Button onClick={props.finish} color="primary">finish</Button>
                         </CardFooter>
                     </Card>
                 </GridItem>

@@ -1,22 +1,26 @@
 import {
-    ADD_PATIENT_DETAILS,
-    REMOVE_PATIENT_DETAILS,
-    ADD_PATIENT_DIAGNOSIS,
-    REMOVE_PATIENT_DIAGNOSIS,
-    ADD_DIAGNOSIS_NUMBER,
-    REMOVE_DIAGNOSIS_NUMBER,
-} from "./../actionsTypes";
+    ADD_NEW_PATIENT_DETAILS,
+    ADD_NEW_PATIENT_DIAGNOSIS,
+    ADD_NEW_DIAGNOSIS_NUMBER,
+    ADD_DEMO,
+    REMOVE_DEMO,
+} from "../actionsTypes";
 
 const initialState = {
     patientData: {},
     diagnosis: [],
-    diagnosisNumber: 1,
+    diagnosisNumber: 0,
+    patientDemo: {
+        fisrtName: "",
+        lastName: "",
+        middleName: "",
+    },
 };
 
 const patientReducers = (state = initialState, action) => {
 
     switch (action.type) {
-        case ADD_PATIENT_DETAILS: {
+        case ADD_NEW_PATIENT_DETAILS: {
             const { patient } = action.payload;
             return {
                 ...state,
@@ -24,7 +28,15 @@ const patientReducers = (state = initialState, action) => {
             };
         }
 
-        case ADD_DIAGNOSIS_NUMBER: {
+        case ADD_NEW_PATIENT_DIAGNOSIS: {
+            const { newDiagnosis } = action.payload;
+            return {
+                ...state,
+                diagnosis: [...state.diagnosis, newDiagnosis],
+            };
+        }
+
+        case ADD_NEW_DIAGNOSIS_NUMBER: {
             const { number } = action.payload;
             return {
                 ...state,
@@ -32,13 +44,27 @@ const patientReducers = (state = initialState, action) => {
             };
         }
 
-        case ADD_PATIENT_DIAGNOSIS: {
-            const { newDiagnosis } = action.payload;
+
+
+
+
+        case ADD_DEMO: {
+            const { demo } = action.payload;
             return {
                 ...state,
-                diagnosis: [...state.diagnosis, newDiagnosis],
+                patientDemo: demo,
             };
         }
+
+
+        case REMOVE_DEMO: {
+            const { demo } = action.payload;
+            return {
+                ...state,
+                patientDemo: demo,
+            };
+        }
+
 
         // case TOGGLE_TODO: {
         //     const { id } = action.payload;

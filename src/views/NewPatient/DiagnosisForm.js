@@ -11,21 +11,18 @@ import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 
 // import { validatePatient } from "Validators/PatientValidator";
 import { sendDiagnosisToServer } from "Controllers/DiagnosisController";
+import { sendAllergenProtocolToServer } from "Controllers/AllergenProtocolController";
+
 import SelectReact from "react-select";
 
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useHistory } from "react-router-dom";
-
 import { addDiagnosis, addDiagnosisNumber } from '../../Redux/actions';
 import { useSelector, useDispatch } from "react-redux";
-
-import Dialog from '@material-ui/core/Dialog';
 
 const styles = {
     cardCategoryWhite: {
@@ -54,19 +51,18 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function DaignosisDetails() {
+export default function DaignosisDetails(props) {
 
     const classes = useStyles();
-    const history = useHistory();
     const dispatch = useDispatch();
 
     require('dotenv').config()
     toast.configure()
 
-    const diagnosisNumber = useSelector((state) => state.patient.diagnosisNumber);
+    const patient = useSelector((state) => state.NewPatient.patientData);
+    const diagnosisNumber = useSelector((state) => state.NewPatient.diagnosisNumber);
     const allAllergens = useSelector((state) => state.staticData.allergensDB);
     const allProtocols = useSelector((state) => state.staticData.protocolsDB);
-    const patient = useSelector((state) => state.patient.patientData);
 
     const [allergens, setAllergens] = useState([])
     const [protocol, setProtocol] = useState({})
@@ -108,55 +104,54 @@ export default function DaignosisDetails() {
     async function saveDiagnosis() {
         var validDiagnosis = await validateDiagnosis();
 
-        // newPatient.patientId = patientId;
-        // newPatient.fisrtName = firstName;
-        // newPatient.lastName = lastName;
-
-
         if (validDiagnosis) {
 
             const newDiagnosis = {};
-
-            newDiagnosis.diagnosisNumber = diagnosisNumber;
-            newDiagnosis.injectionLocation = locations[0];
+            newDiagnosis.diagnosisNumber = diagnosisNumber + 1;
+            newDiagnosis.injectionLocation = locations[0]; // TODO change to array
             newDiagnosis.patient = patient;
             newDiagnosis.allergens = allergens;
 
-
             console.log(newDiagnosis);
-
-
-            // var serverResponse = await sendDiagnosisToServer(newDiagnosis);
-            // console.log(serverResponse);
 
             await sendDiagnosisToServer(newDiagnosis, "123456789")
                 .then(data => {
                     console.log(data);
-                    dispatch(addDiagnosisNumber(diagnosisNumber + 1));
-                    dispatch(addDiagnosis(data));
-                    history.replace('/admin/AddNewPatient/NewDiagnosis');
+                    saveAllergenProtocol(data)
                 }).catch(e => {
                     console.log(e);
                 });
-
-            // if (serverResponse.success === true) {
-
-            //     dispatch(addPatient(serverResponse.patient));
-            //     // history.push('/admin/AddNewPatient/NewDiagnosis');
-            //     history.replace('/admin/AddNewPatient/NewDiagnosis');
-
-            // }
-
         }
+    }
 
+    async function saveAllergenProtocol(diagnosis) {
+
+        const newAllergenProtocol = {};
+        newAllergenProtocol.protocol = protocol;
+        newAllergenProtocol.diagnosis = diagnosis;
+        newAllergenProtocol.completed = false;
+
+        console.log(newAllergenProtocol);
+
+        await sendAllergenProtocolToServer(newAllergenProtocol, "123456789")
+            .then(data => {
+                console.log("newAllergenProtocol");
+                console.log(data);
+                diagnosis.protocols = [data.protocol]
+                diagnosis.injectionLocation = [diagnosis.injectionLocation] // TODO need to delete it
+                dispatch(addDiagnosis(diagnosis));
+                dispatch(addDiagnosisNumber(diagnosisNumber + 1));
+                toast.success("Diagnosis added successfuly ", { position: toast.POSITION.TOP_CENTER, autoClose: 2000 })
+                props.close();
+            }).catch(e => {
+                console.log(e);
+            });
     }
 
 
     return (
 
-
         <GridContainer>
-
             <GridItem xs={12} sm={12} md={12}>
                 <Card>
                     <CardHeader color={"primary"}>
@@ -165,7 +160,6 @@ export default function DaignosisDetails() {
                     </CardHeader>
 
                     <CardBody>
-
 
                         {/* ------------- ALLERGENS -------------*/}
                         < GridContainer >

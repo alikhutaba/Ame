@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import patient from "./patient";
-import staticData from "./staticData"
+import NewPatient from "./NewPatientReducer"
+import staticData from "./staticDataReducer"
 
-export default combineReducers({ patient, staticData });
+export default combineReducers({ NewPatient, staticData });

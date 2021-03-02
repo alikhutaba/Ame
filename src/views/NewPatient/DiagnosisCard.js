@@ -96,7 +96,7 @@ export default function DiagnosisCard(props) {
                                 <Paper component="ul" className={classes.root}>
                                     {props.diangnos.allergens.map((data, i) => {
                                         return (
-                                            <li key={data.key}>
+                                            <li key={i}>
                                                 <Chip label={data.name} className={classes.chip} color="primary" />
                                             </li>
                                         );
@@ -118,7 +118,7 @@ export default function DiagnosisCard(props) {
                                 <Paper component="ul" className={classes.root}>
                                     {props.diangnos.protocols.map((data, i) => {
                                         return (
-                                            <li key={data.key}>
+                                            <li key={i}>
                                                 <Chip label={data.name} className={classes.chip} color="primary" />
                                             </li>
                                         );
@@ -140,7 +140,7 @@ export default function DiagnosisCard(props) {
                                 <Paper component="ul" className={classes.root}>
                                     {props.diangnos.injectionLocation.map((data, i) => {
                                         return (
-                                            <li key={data.key}>
+                                            <li key={i}>
                                                 <Chip label={data} className={classes.chip} color="primary" />
                                             </li>
                                         );
