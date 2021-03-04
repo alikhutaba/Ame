@@ -38,6 +38,7 @@ export default function Icons() {
   return (
     <div>
       <GridContainer>
+        <GridContainer>
         <GridItem xs={10} sm={12} md={3}>
           <Card>
             <CardHeader color="success">
@@ -55,23 +56,29 @@ export default function Icons() {
               />
             </CardBody>
           </Card>
-          <Card>
+        </GridItem>
+        <GridItem xs={21} sm={21} md={9}>
+        <Card>
             <CardHeader color="warning">
+              <GridContainer>
+            <GridItem>
               <h4 className={classes.cardTitleWhite}>Insert New Injection:</h4>
               <p className={classes.cardCategoryWhite}>
                 Choose injection number, and insert new line to history table.
               </p>
-            </CardHeader>
-            <CardBody>
-              <GridContainer>
-                <GridItem>
+              </GridItem>
+              <GridItem>
                   <Button type="button" color="primary" size="sm">injection 1</Button>
                   {/* Clicking on button open a drop down list for each field. EX: Alergen Type --> Mix Mite*/}
                   <Button type="button" color="primary" size="sm">injection 2</Button>
 
                   <Button type="button" color="primary" size="sm">injection 3</Button>
                 </GridItem>
-                <GridItem xs={21} sm={21} md={6}>
+                </GridContainer>
+            </CardHeader>
+            <CardBody>
+              <GridContainer>
+                <GridItem xs={21} sm={21} md={3}>
                   <CustomInput
                     labelText="Alergen Type"
                     id="Alrg_type"
@@ -80,7 +87,7 @@ export default function Icons() {
                     }}
                   />
                 </GridItem>
-                <GridItem xs={21} sm={21} md={5}>
+                <GridItem xs={21} sm={21} md={2}>
                   <CustomInput
                     labelText="Today's Date"
                     id="Date_field"
@@ -89,7 +96,7 @@ export default function Icons() {
                     }}
                   />
                 </GridItem>
-                <GridItem xs={21} sm={21} md={6}>
+                <GridItem xs={21} sm={21} md={2}>
                   <CustomInput
                     labelText="Concentration"
                     id="Concentration_field"
@@ -98,7 +105,7 @@ export default function Icons() {
                     }}
                   />
                 </GridItem>
-                <GridItem xs={21} sm={21} md={5}>
+                <GridItem xs={21} sm={21} md={1}>
                   <CustomInput
                     labelText="Dosage"
                     id="Dosage_field"
@@ -107,12 +114,18 @@ export default function Icons() {
                     }}
                   />
                 </GridItem>
-              </GridContainer>
-              <GridContainer>
-                <GridItem xs={21} sm={21} md={11}>
-                  <Button type="button" color="primary" size="sm">+</Button>
+                <GridItem xs={21} sm={21} md={1}>
+                <CustomInput
+                  labelText="Reaction?"
+                  id="reaction_field"
+                  formControlProps={{
+                    fullWidth: true
+                  }}
+                />
+              </GridItem>
+                <GridItem xs={21} sm={21} md={3}>
+                  
                   {/* Add new line to history table. */}
-                  <br></br>
                   <CustomInput
                     labelText="Notes"
                     id="Notes_field"
@@ -121,23 +134,26 @@ export default function Icons() {
                     }}
                   />
                 </GridItem>
-              </GridContainer>
-            </CardBody>
-            <CardFooter>
+                
               <GridItem>
-                <CustomInput xs={21} sm={21} md={3}
-                  labelText="Reaction?"
-                  id="reaction_field"
-                  formControlProps={{
-                    fullWidth: true
-                  }}
-                />
+              <Button type="button" color="primary" size="sm">+</Button>
               </GridItem>
-            </CardFooter>
-          </Card>
-        </GridItem>
+              </GridContainer>
+              
 
-        <GridItem xs={12} sm={12} md={8}>
+
+              </CardBody>
+          </Card>
+          </GridItem>
+          </GridContainer>
+
+
+
+
+
+
+
+        <GridItem xs={12} sm={12} md={12}>
           <CustomTabs
           
             title="Injections:"

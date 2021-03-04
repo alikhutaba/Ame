@@ -223,8 +223,10 @@ export default function Notifications() {
             </CardHeader>
             <CardBody>
               <GridContainer>
-                <GridItem xs={12} sm={12} md={4}>
+                <GridItem xs={12} sm={12} md={3}>
                   <lable>Last treatment had no abnormalities:</lable>
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={3}>
                   <Checkbox
                     id="yes1"
                     onClick={SetCheckStatus(1)}
@@ -247,8 +249,10 @@ export default function Notifications() {
                   /></GridItem>
               </GridContainer>
               <GridContainer>
-                <GridItem xs={12} sm={12} md={4}>
+                <GridItem xs={12} sm={12} md={3}>
                   <label>Antihistamine before vaccination:</label>
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={3}>
                   <Checkbox
                     id="yes2"
                     onClick={SetCheckStatus(1)}
@@ -271,9 +275,11 @@ export default function Notifications() {
                   /></GridItem>
               </GridContainer>
               <GridContainer>
-                <GridItem xs={12} sm={12} md={4}>
+                <GridItem xs={12} sm={12} md={3}>
                   <label>Patient feels good today:</label>
                   {/* <input type="checkbox" defaultChecked={this.state.chkbox} onChange={this.handleChangeChk}/> */}
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={3}>
                   <Checkbox
                     id="yes3"
                     onClick={SetCheckStatus(1)}
