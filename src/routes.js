@@ -61,7 +61,7 @@ const dashboardRoutes = [
 
   {
     path: "/AddNewPatient",
-    name: "add Patient",
+    name: "Add Patient",
     // rtlName: "מטופל חדש",
     icon: AddCircleIcon,
     component: NewPatient,

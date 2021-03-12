@@ -39,7 +39,7 @@ export default function Icons() {
     <div>
       <GridContainer>
         <GridContainer>
-        <GridItem xs={10} sm={12} md={3}>
+        <GridItem xs={10} sm={12} md={4}>
           <Card>
             <CardHeader color="success">
               <h4 className={classes.cardTitleWhite}>Information Summery:</h4>
@@ -57,7 +57,7 @@ export default function Icons() {
             </CardBody>
           </Card>
         </GridItem>
-        <GridItem xs={21} sm={21} md={9}>
+        <GridItem xs={21} sm={21} md={8}>
         <Card>
             <CardHeader color="warning">
               <GridContainer>
@@ -114,7 +114,7 @@ export default function Icons() {
                     }}
                   />
                 </GridItem>
-                <GridItem xs={21} sm={21} md={1}>
+                {/* <GridItem xs={21} sm={21} md={1}>
                 <CustomInput
                   labelText="Reaction?"
                   id="reaction_field"
@@ -122,8 +122,11 @@ export default function Icons() {
                     fullWidth: true
                   }}
                 />
-              </GridItem>
-                <GridItem xs={21} sm={21} md={3}>
+              </GridItem> */}
+              
+              <br></br>
+              </GridContainer><GridContainer>
+                <GridItem xs={15} sm={15} md={8}>
                   
                   {/* Add new line to history table. */}
                   <CustomInput
@@ -134,9 +137,11 @@ export default function Icons() {
                     }}
                   />
                 </GridItem>
-                
-              <GridItem>
+                <GridItem>
               <Button type="button" color="primary" size="sm">+</Button>
+              </GridItem>
+              <GridItem>
+              <Button type="button" color="primary" size="sm">Manual Changes</Button>
               </GridItem>
               </GridContainer>
               
@@ -173,19 +178,18 @@ export default function Icons() {
                       <Table
                         id="New_inj"
                         tableHeaderColor="primary"
-                        tableHead={["Alergen Type", "Dosage", "Concentration", "Date Givven", "Reaction?", "Notes"]}
+                        tableHead={["Electronic Signiture","Alergen Type", "Dosage", "Concentration", "Date Given", "Notes"]}
                         tableData={[
-                          ["Mix Mite", "0.03", "500", "21/01/2021"]]}//paint in rad - if reaction
-                        tableData={[
-                          ["Mix Mite", "0.4", "50", "14/01/2021", "No", "No anomalies."],
-                          ["Mix Mite", "0.3", "50", "07/01/2021", "No", "No anomalies."],
-                          ["Mix Mite", "0.2", "50", "01/01/2021", "No", "No anomalies."],
-                          ["Mix Mite", "0.1", "50", "25/12/2020", "No", "No anomalies."],
-                          ["Mix Mite", "0.05", "50", "18/12/2020", "No", "No anomalies."],
-                          ["Mix Mite", "0.4", "5", "11/12/2020", "No", "No anomalies."],
-                          ["Mix Mite", "0.2", "5", "04/12/2020", "No", "No anomalies."],
-                          ["Mix Mite", "0.1", "5", "29/11/2020", "No", "No anomalies."],
-                          ["Mix Mite", "0.05", "5", "22/11/2020", "No", "No anomalies."],
+                          ["Nova Banona","Mix Mite", "0.03", "500", "21/01/2021","Nausea and vomiting"],
+                          ["Nova Banona","Mix Mite", "0.4", "50", "14/01/2021", "No anomalies."],
+                          ["Nova Banona","Mix Mite", "0.3", "50", "07/01/2021", "No anomalies."],
+                          ["Bonny Danony","Mix Mite", "0.2", "50", "01/01/2021", "No anomalies."],
+                          ["Bonny Danony","Mix Mite", "0.1", "50", "25/12/2020", "No anomalies."],
+                          ["Bonny Danony","Mix Mite", "0.05", "50", "18/12/2020", "No anomalies."],
+                          ["Nova Banona","Mix Mite", "0.4", "5", "11/12/2020", "No anomalies."],
+                          ["Nova Banona","Mix Mite", "0.2", "5", "04/12/2020", "No anomalies."],
+                          ["Nova Banona","Mix Mite", "0.1", "5", "29/11/2020", "No anomalies."],
+                          ["Bonny Danony","Mix Mite", "0.05", "5", "22/11/2020", "No anomalies."],
                         ]}
                       />
                     </CardBody>
@@ -205,34 +209,35 @@ export default function Icons() {
                     <CardBody>
                       <Table
                         id="New_inj"
+                        // borderBottom= 'solid 3px blue'//border???
                         tableHeaderColor="primary"
-                        tableHead={["Alergen Type", "Dosage", "Concentration", "Date Givven", "Reaction?", "Notes"]}
+                        tableHead={["Electronic Signiture","Alergen Type", "Dosage", "Concentration", "Date Given", "Notes"]}
                         tableData={[
                           // those lines need to be rad!!!! and bolt!
-                          ["Cat", "0.4", "10", "21/01/2021", "YES!", "Breathing difficulty; Oxygen: 10LPM,90% mask for 15 minutes; Solomedrol"],
-                          ["Dog", "0.4", "10", "21/01/2021", "YES!", "Breathing difficulty; Oxygen: 10LPM,90% mask for 15 minutes; Solomedrol"],
-                          ["Olive", "0.4", "10", "21/01/2021", "YES!", "Breathing difficulty; Oxygen: 10LPM,90% mask for 15 minutes; Solomedrol"],
-                          ["Oak", "0.4", "10", "21/01/2021", "YES!", "Breathing difficulty; Oxygen: 10LPM,90% mask for 15 minutes; Solomedrol"],
-                          ["Pine", "0.4", "10", "21/01/2021", "YES!", "Breathing difficulty; Oxygen: 10LPM,90% mask for 15 minutes; Solomedrol"],
+                          ["Ben Boomie","Cat", "0.4", "10", "21/01/2021", "Breathing difficulty; Oxygen: 10LPM,90% mask for 15 minutes; Solomedrol"],
+                          ["Ben Boomie","Dog", "0.4", "10", "21/01/2021", "Breathing difficulty; Oxygen: 10LPM,90% mask for 15 minutes; Solomedrol"],
+                          ["Ben Boomie","Olive", "0.4", "10", "21/01/2021", "Breathing difficulty; Oxygen: 10LPM,90% mask for 15 minutes; Solomedrol"],
+                          ["Ben Boomie","Oak", "0.4", "10", "21/01/2021", "Breathing difficulty; Oxygen: 10LPM,90% mask for 15 minutes; Solomedrol"],
+                          ["Ben Boomie","Pine", "0.4", "10", "21/01/2021", "Breathing difficulty; Oxygen: 10LPM,90% mask for 15 minutes; Solomedrol"],
+                          // different color or superation line (border)- supareate by date!
+                          ["Ben Boomie","Cat", "0.2", "10", "14/01/2021", "No anomalies."],
+                          ["Ben Boomie","Dog", "0.2", "10", "14/01/2021", "No anomalies."],
+                          ["Ben Boomie","Olive", "0.2", "10", "14/01/2021", "No anomalies."],
+                          ["Ben Boomie","Oak", "0.2", "10", "14/01/2021", "No anomalies."],
+                          ["Nova Banona","Pine", "0.2", "10", "14/01/2021", "No anomalies."],
                           // different color or superation line - supareate by date!
-                          ["Cat", "0.2", "10", "14/01/2021", "No", "No anomalies."],
-                          ["Dog", "0.2", "10", "14/01/2021", "No", "No anomalies."],
-                          ["Olive", "0.2", "10", "14/01/2021", "No", "No anomalies."],
-                          ["Oak", "0.2", "10", "14/01/2021", "No", "No anomalies."],
-                          ["Pine", "0.2", "10", "14/01/2021", "No", "No anomalies."],
+                          ["Ben Boomie","Cat", "0.1", "10", "07/01/2021", "No anomalies."],
+                          ["Ben Boomie","Dog", "0.1", "10", "07/01/2021", "No anomalies."],
+                          ["Ben Boomie","Olive", "0.1", "10", "07/01/2021", "No anomalies."],
+                          ["Ben Boomie","Oak", "0.1", "10", "07/01/2021", "No anomalies."],
+                          ["Ben Boomie","Pine", "0.1", "10", "07/01/2021", "No anomalies."],
                           // different color or superation line - supareate by date!
-                          ["Cat", "0.1", "10", "07/01/2021", "No", "No anomalies."],
-                          ["Dog", "0.1", "10", "07/01/2021", "No", "No anomalies."],
-                          ["Olive", "0.1", "10", "07/01/2021", "No", "No anomalies."],
-                          ["Oak", "0.1", "10", "07/01/2021", "No", "No anomalies."],
-                          ["Pine", "0.1", "10", "07/01/2021", "No", "No anomalies."],
-                          // different color or superation line - supareate by date!
-                          ["Cat", "0.05", "10", "01/01/2021", "No", "No anomalies."],
-                          ["Dog", "0.05", "10", "01/01/2021", "No", "No anomalies."],
-                          ["Olive", "0.05", "10", "01/01/2021", "No", "No anomalies."],
-                          ["Oak", "0.05", "10", "01/01/2021", "No", "No anomalies."],
-                          ["Pine", "0.05", "10", "01/01/2021", "No", "No anomalies."],
-                        ]}
+                          ["Ben Boomie","Cat", "0.05", "10", "01/01/2021", "No anomalies."],
+                          ["Ben Boomie","Dog", "0.05", "10", "01/01/2021", "No anomalies."],
+                          ["Ben Boomie","Olive", "0.05", "10", "01/01/2021", "No anomalies."],
+                          ["Ben Boomie","Oak", "0.05", "10", "01/01/2021", "No anomalies."],
+                          ["Ben Boomie","Pine", "0.05", "10", "01/01/2021", "No anomalies."],
+                        ]}// when there are more then 1 type of alergen use the border between dates.
                       />
                     </CardBody>
                   </Card>
@@ -252,21 +257,21 @@ export default function Icons() {
                       <Table
                         id="New_inj"
                         tableHeaderColor="primary"
-                        tableHead={["Alergen Type", "Dosage", "Concentration", "Date Givven", "Reaction?", "Notes"]}
+                        tableHead={["Electronic Signiture", "Alergen Type", "Dosage", "Concentration", "Date Given", "Notes"]}
                         tableData={[
-                          ["Bees", "0.05", "100", "21/1/2021", "No", "No anomalies."],
-                          ["Bees", "0.02", "100", "14/1/2021", "No", "No anomalies."],
-                          ["Bees", "0.07", "100", "07/1/2021", "YES!", "Nausea and vomiting"],
-                          ["Bees", "0.05", "100", "01/1/2021", "No", "No anomalies."],
-                          ["Bees", "0.02", "100", "25/12/2020", "No", "No anomalies."],
-                          ["Bees", "0.4", "10", "18/12/2020", "No", "No anomalies."],
-                          ["Bees", "0.2", "10", "11/12/2020", "No", "No anomalies."],
-                          ["Bees", "0.1", "10", "04/12/2020", "No", "No anomalies."],
-                          ["Bees", "0.05", "10", "29/11/2020", "No", "No anomalies."],
-                          ["Bees", "0.4", "1", "22/11/2020", "No", "No anomalies."],
-                          ["Bees", "0.2", "1", "15/11/2020", "No", "No anomalies."],
-                          ["Bees", "0.1", "1", "09/11/2020", "No", "No anomalies."],
-                          ["Bees", "0.05", "1", "02/11/2020", "No", "No anomalies."]
+                          ["Nova Banona","Bees", "0.05", "100", "21/1/2021", "No anomalies."],
+                          ["Nova Banona","Bees", "0.02", "100", "14/1/2021", "No anomalies."],
+                          ["Nova Banona","Bees", "0.07", "100", "07/1/2021", "Nausea and vomiting"],
+                          ["Nova Banona","Bees", "0.05", "100", "01/1/2021", "No anomalies."],
+                          ["Nova Banona","Bees", "0.02", "100", "25/12/2020", "No anomalies."],
+                          ["Oly Bonoly","Bees", "0.4", "10", "18/12/2020", "No anomalies."],
+                          ["Oly Bonoly","Bees", "0.2", "10", "11/12/2020", "No anomalies."],
+                          ["Oly Bonoly","Bees", "0.1", "10", "04/12/2020", "No anomalies."],
+                          ["Nova Banona","Bees", "0.05", "10", "29/11/2020", "No anomalies."],
+                          ["Nova Banona","Bees", "0.4", "1", "22/11/2020", "No anomalies."],
+                          ["Nova Banona","Bees", "0.2", "1", "15/11/2020", "No anomalies."],
+                          ["Nova Banona","Bees", "0.1", "1", "09/11/2020", "No anomalies."],
+                          ["Nova Banona","Bees", "0.05", "1", "02/11/2020", "No anomalies."]
                         ]}
                       />
                     </CardBody>
