@@ -8,9 +8,6 @@ async function getallProtocolsFromServer(userId) {
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "*",
-                "Access-Control-Allow-Headers": "'Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token'",
             },
         }).then(function (response) {
             responeStatus = response.ok;
@@ -28,8 +25,5 @@ async function getallProtocolsFromServer(userId) {
 
 }
 
-function mul(a, b) {
-    return a * b
-}
 
-export { getallProtocolsFromServer, mul }
+export { getallProtocolsFromServer }

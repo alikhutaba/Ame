@@ -11,6 +11,9 @@ export default function AddPatient() {
         console.log("AddPatient :: finish")
         // need to clear the redux from the new patient
         setSavedPatient(false)
+        window.location.reload(false);
+
+
     }
 
     return (

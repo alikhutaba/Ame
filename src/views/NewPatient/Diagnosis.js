@@ -91,10 +91,6 @@ export default function NewDiagnosis(props) {
     };
 
 
-    function finish() {
-        props.finish();
-    }
-
     return (
         <div>
             <GridContainer>
@@ -108,15 +104,6 @@ export default function NewDiagnosis(props) {
                     <DialogContent>
                         <DiagnosisForm close={handleClose}></DiagnosisForm>
                     </DialogContent>
-
-                    {/* <DialogActions>
-                        <Button onClick={handleClose} color="primary">
-                            Cancel
-          </Button>
-                        <Button onClick={handleClose} color="primary">
-                            Subscribe
-          </Button>
-                    </DialogActions> */}
                 </Dialog>
 
 

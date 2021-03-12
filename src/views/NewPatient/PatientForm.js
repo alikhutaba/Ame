@@ -17,6 +17,9 @@ import CardAvatar from "components/Card/CardAvatar.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 
+import DatePicker from '@material-ui/lab/DatePicker';
+
+
 import MuiPhoneNumber from 'material-ui-phone-number';
 
 import { validatePatient } from "Validators/Validator";
@@ -109,7 +112,6 @@ export default function NewPatient(props) {
   const { savedPatient, setSavedPatient } = props.savedState;
 
   const demo = useSelector((state) => state.NewPatient.patientDemo);
-  const [demoName, setDemoName] = useState("")
 
 
   const [patientId, setPatientId] = useState("")
@@ -134,24 +136,53 @@ export default function NewPatient(props) {
   // private UserBoundary validated_by;
 
 
-  function handleDemo(e) {
-    setDemoName(e.target.value)
+
+  function handlePatientId(e) {
+    setPatientId(e.target.value)
+  }
+
+  function handleFirstName(e) {
+    setFirstName(e.target.value)
+  }
+
+  function handleLastName(e) {
+    setLastName(e.target.value)
+  }
+
+  function handleMiddleName(e) {
+    setMiddleName(e.target.value)
   }
 
   const handleDateChange = (date) => {
     setBirthdate(date);
-  };
+  }
 
   const handleGender = (event) => {
     setGender(event.target.value);
-  };
-
-  const handleHmo = (event) => {
-    setHmo(event.target.value);
   }
 
   const handlePhone = (event) => {
     setPhone(event)
+  }
+
+  function handleState(e) {
+    setState(e.target.value)
+  }
+
+  function handleCity(e) {
+    setCity(e.target.value)
+  }
+
+  function handleStreetAddress(e) {
+    setStreetAddress(e.target.value)
+  }
+
+  function handleHouseNumber(e) {
+    setHouseNumber(e.target.value)
+  }
+
+  const handleHmo = (event) => {
+    setHmo(event.target.value);
   }
 
   const handleVaccineStatus = (event) => {
@@ -164,8 +195,22 @@ export default function NewPatient(props) {
       setMedicationSensitivityNote("")
   }
 
+  function handleMedicationSensitivityNote(e) {
+    setMedicationSensitivityNote(e.target.value)
+  }
+
+  function handleNursingHistory(e) {
+    setNursingHistory(e.target.value)
+  }
+
+  function handleNotes(e) {
+    setNotes(e.target.value)
+  }
+
+
 
   async function savePatient() {
+
     const newPatient = {};
     newPatient.patientId = patientId;
     newPatient.fisrtName = firstName;
@@ -193,21 +238,21 @@ export default function NewPatient(props) {
     newPatient.notes = notes;
 
     var valid = await validatePatient(newPatient);
-    console.log("savePatient");
+    // console.log("savePatient");
 
     if (valid) {
-      console.log("valid = ");
-      console.log(valid);
+      // console.log("valid = ");
+      // console.log(valid);
 
-      await sendPatientToServer(newPatient, "123456789")
-        .then(data => {
-          console.log(data);
-          dispatch(addPatient(data));
-          setSavedPatient(true)
-          // history.replace('/admin/AddNewPatient/NewDiagnosis');
-        }).catch(e => {
-          console.log(e);
-        });
+      // await sendPatientToServer(newPatient, "123456789")
+      //   .then(data => {
+      //     console.log(data);
+      //     dispatch(addPatient(data));
+      //     setSavedPatient(true)
+      //     // history.replace('/admin/AddNewPatient/NewDiagnosis');
+      //   }).catch(e => {
+      //     console.log(e);
+      //   });
 
       // var serverResponse = await sendPatientToServer(newPatient);
       // console.log(serverResponse);
@@ -241,32 +286,16 @@ export default function NewPatient(props) {
 
             <CardBody>
 
-
-              < GridContainer >
-                <GridItem xs={12} sm={12} md={6}>
-                  <MyCustomInput
-                    labelText="Username"
-                    id="username"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
-                    inputProps={{ value: demo.fisrtName, onChange: handleDemo }}
-                  />
-                </GridItem>
-              </GridContainer>
-
-
-
               {/* ------------- ID -------------*/}
               < GridContainer >
                 <GridItem xs={12} sm={12} md={6}>
                   <CustomInput
-                    value={{ value: patientId, setValue: setPatientId }}
                     labelText="Patient ID"
                     // id="patient-id"
                     formControlProps={{
                       fullWidth: true
                     }}
+                    inputProps={{ value: patientId, onChange: handlePatientId }}
                   />
                 </GridItem>
               </GridContainer>
@@ -276,34 +305,34 @@ export default function NewPatient(props) {
               < GridContainer >
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
-                    value={{ value: firstName, setValue: setFirstName }}
                     labelText="First Name"
                     // id="first-name"
                     formControlProps={{
                       fullWidth: true
                     }}
+                    inputProps={{ value: firstName, onChange: handleFirstName }}
                   />
                 </GridItem>
 
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
-                    value={{ value: middleName, setValue: setMiddleName }}
                     labelText="Middle Name"
                     // id="middle-name"
                     formControlProps={{
                       fullWidth: true
                     }}
+                    inputProps={{ value: middleName, onChange: handleMiddleName }}
                   />
                 </GridItem>
 
                 <GridItem xs={12} sm={12} md={4}>
                   <CustomInput
-                    value={{ value: lastName, setValue: setLastName }}
                     labelText="Last Name"
                     // id="last-name"
                     formControlProps={{
                       fullWidth: true
                     }}
+                    inputProps={{ value: lastName, onChange: handleLastName }}
                   />
                 </GridItem>
 
@@ -385,44 +414,41 @@ export default function NewPatient(props) {
               <GridContainer>
                 <GridItem xs={12} sm={12} md={3}>
                   <CustomInput
-                    value={{ value: state, setValue: setState }}
                     labelText="State"
                     formControlProps={{
                       fullWidth: true
                     }}
+                    inputProps={{ value: state, onChange: handleState }}
                   />
                 </GridItem>
 
                 <GridItem xs={12} sm={12} md={3}>
                   <CustomInput
-                    value={{ value: city, setValue: setCity }}
                     labelText="City"
                     formControlProps={{
                       fullWidth: true
                     }}
-
+                    inputProps={{ value: city, onChange: handleCity }}
                   />
                 </GridItem>
 
                 <GridItem xs={12} sm={12} md={3}>
                   <CustomInput
-                    value={{ value: streetAddress, setValue: setStreetAddress }}
                     labelText="Street"
                     formControlProps={{
                       fullWidth: true
                     }}
-
+                    inputProps={{ value: streetAddress, onChange: handleStreetAddress }}
                   />
                 </GridItem>
 
                 <GridItem xs={12} sm={12} md={3}>
                   <CustomInput
-                    value={{ value: houseNumber, setValue: setHouseNumber }}
                     labelText="House Number"
                     formControlProps={{
                       fullWidth: true
                     }}
-
+                    inputProps={{ value: houseNumber, onChange: handleHouseNumber }}
                   />
                 </GridItem>
               </GridContainer>
@@ -468,12 +494,12 @@ export default function NewPatient(props) {
                 {medicationSensitivityAnswer === true ?
                   <GridItem xs={12} sm={12} md={6}>
                     <CustomInput
-                      value={{ value: medicationSensitivityNote, setValue: setMedicationSensitivityNote }}
                       labelText="medication Sensitivity notes"
                       id="medicationSensitivity"
                       formControlProps={{
                         fullWidth: true
                       }}
+                      inputProps={{ value: medicationSensitivityNote, onChange: handleMedicationSensitivityNote }}
                     />
                   </GridItem>
                   : null}
@@ -486,13 +512,14 @@ export default function NewPatient(props) {
                 <GridItem xs={12} sm={12} md={12}>
                   <InputLabel style={{ color: "#AAAAAA" }}>nursing History:</InputLabel>
                   <CustomInput
-                    value={{ value: nursingHistory, setValue: setNursingHistory }}
                     formControlProps={{
                       fullWidth: true
                     }}
                     inputProps={{
                       multiline: true,
                       rows: 5,
+                      value: nursingHistory,
+                      onChange: handleNursingHistory
                     }}
                   />
                 </GridItem>
@@ -509,6 +536,8 @@ export default function NewPatient(props) {
                     inputProps={{
                       multiline: true,
                       rows: 5,
+                      value: notes,
+                      onChange: handleNotes
                     }}
                   />
                 </GridItem>

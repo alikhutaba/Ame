@@ -12,7 +12,6 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 
-// import { validatePatient } from "Validators/PatientValidator";
 import { sendDiagnosisToServer } from "Controllers/DiagnosisController";
 import { sendAllergenProtocolToServer } from "Controllers/AllergenProtocolController";
 
